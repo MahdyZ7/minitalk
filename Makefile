@@ -6,13 +6,17 @@
 #    By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/09 12:46:30 by ayassin           #+#    #+#              #
-#    Updated: 2022/05/10 09:00:39 by ayassin          ###   ########.fr        #
+#    Updated: 2022/05/10 15:10:21 by ayassin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minitalk
 
-HEADER = server.h client.h
+SERVER = server
+
+CLIENT = client
+
+HEADER = minitalk.h
 
 SRC = server.c client.c
 
@@ -26,34 +30,39 @@ LINKS = -Llibft -lft -Lft_printf -lftprintf
 
 OBJS = $(SRC:.c=.o)
 
-all: $(NAME)
+all: $(CLIENT) $(SERVER)
 
 .c.o:
 	$(CC) $(CFALGS) -c $^ -o $@
 
-$(NAME): $(SUBDIRS) $(OBJS)
+$(NAME):$(OBJS) $(SERVER $(CLIENT))
+
+$(SERVER):
 	for dir in $(SUBDIRS); do \
         $(MAKE) all -C $$dir; \
     done
+	$(CC) $(CFALGS) -c server.c
 	$(CC) $(CFALGS) $(LINKS) server.c -o server
+	
+$(CLIENT):
+	for dir in $(SUBDIRS); do \
+        $(MAKE) all -C $$dir; \
+    done
+	$(CC) $(CFALGS) -c client.c
 	$(CC) $(CFLAGS) $(LINKS) client.c -o client
 
-$(SUBDIRS):
-	for dir in $(SUBDIRS); do \
-        $(MAKE) all -C $$dir; \
-    done
-
 clean:
-	rm -f $(OBJS)
 	for dir in $(SUBDIRS); do \
         $(MAKE) clean -C $$dir; \
     done
+	rm -f $(OBJS)
+	
 
 fclean: clean
-	rm -f $(NAME)
-	for dir in $(SUBDIRS); do \
+	@for dir in $(SUBDIRS); do \
         $(MAKE) fclean -C $$dir; \
     done
+	rm -f $(NAME) $(SERVER) $(CLIENT)
 
 re : fclean all
 
