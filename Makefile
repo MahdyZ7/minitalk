@@ -6,7 +6,7 @@
 #    By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/09 12:46:30 by ayassin           #+#    #+#              #
-#    Updated: 2022/05/10 15:10:21 by ayassin          ###   ########.fr        #
+#    Updated: 2022/05/12 15:30:58 by ayassin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,31 +35,29 @@ all: $(CLIENT) $(SERVER)
 .c.o:
 	$(CC) $(CFALGS) -c $^ -o $@
 
-$(NAME):$(OBJS) $(SERVER $(CLIENT))
+$(NAME):$(OBJS) $(SERVER) $(CLIENT)
 
-$(SERVER):
+$(SERVER): $(OBJS) 
 	for dir in $(SUBDIRS); do \
         $(MAKE) all -C $$dir; \
     done
-	$(CC) $(CFALGS) -c server.c
 	$(CC) $(CFALGS) $(LINKS) server.c -o server
 	
-$(CLIENT):
+$(CLIENT): $(OBJS)
 	for dir in $(SUBDIRS); do \
         $(MAKE) all -C $$dir; \
     done
-	$(CC) $(CFALGS) -c client.c
 	$(CC) $(CFLAGS) $(LINKS) client.c -o client
 
 clean:
 	for dir in $(SUBDIRS); do \
         $(MAKE) clean -C $$dir; \
     done
-	rm -f $(OBJS)
+	rm -f $(OBJS) 
 	
 
 fclean: clean
-	@for dir in $(SUBDIRS); do \
+	for dir in $(SUBDIRS); do \
         $(MAKE) fclean -C $$dir; \
     done
 	rm -f $(NAME) $(SERVER) $(CLIENT)
