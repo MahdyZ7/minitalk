@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: ayassin <ayassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 08:37:35 by ayassin           #+#    #+#             */
-/*   Updated: 2022/05/10 09:01:49 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/05/14 20:46:44 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <signal.h>
 # include <unistd.h>
-# include <stdio.h>
 # include "libft/libft.h"
 # include "ft_printf/ft_printf.h"
 

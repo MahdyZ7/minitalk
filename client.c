@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: ayassin <ayassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 08:39:04 by ayassin           #+#    #+#             */
-/*   Updated: 2022/05/14 13:48:33 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/05/14 23:21:44 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	add_bit3(int signum, siginfo_t *info, void *ptr)
 	(void) signum;
 	(void) info;
 	(void) ptr;
-	printf("It is happning\n");
+	ft_printf("It is happning\n");
 }
 
 int	main(int argv, char **argc)

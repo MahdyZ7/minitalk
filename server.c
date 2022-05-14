@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: ayassin <ayassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 08:49:08 by ayassin           #+#    #+#             */
-/*   Updated: 2022/05/14 15:47:04 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/05/14 23:17:14 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,18 +94,7 @@ void	add_bit3(int signum, siginfo_t *info, void *ptr)
 	static t_list	*signal_queue;
 	int				*pid;
 
-	(void) ptr;
-	if (signal_queue == NULL)
-	{
-		pid = (int *)malloc(sizeof(*pid));
-		*pid = info->si_pid;
-		ft_lstadd_back(&signal_queue, ft_lstnew(pid));
-		kill(*pid, SIGUSR2);
-		return ;
-	}
-	else if (signum == 0)
-		kill(info->si_pid, SIGUSR2);
-	else if (info->si_pid == *((int *)signal_queue->content))
+	if (signal_queue && info->si_pid == *((int *)signal_queue->content))
 	{
 		if (add_bit4(signum))
 		{
@@ -113,16 +102,20 @@ void	add_bit3(int signum, siginfo_t *info, void *ptr)
 			if (signal_queue)
 			{
 				info->si_pid = *((int *)signal_queue->content);
-				add_bit3(0, info, NULL);
+				add_bit3(0, info, ptr);
 			}
 		}
 	}
-	else
+	else if (!(signal_queue && info->si_pid == *((int *)signal_queue->content)))
 	{
 		pid = (int *)malloc(sizeof(*pid));
 		*pid = info->si_pid;
 		ft_lstadd_back(&signal_queue, ft_lstnew(pid));
+		if (signal_queue == NULL)
+			kill(*pid, SIGUSR2);
 	}
+	else
+		kill(info->si_pid, SIGUSR2);
 }
 
 // int	main2(void)
