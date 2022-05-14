@@ -8,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Thu May 12 10:47:42 2022
+# Make data base, printed on Sat May 14 14:15:04 2022
 
 # Variables
 
@@ -45,11 +45,13 @@ VSCODE_VERBOSE_LOGGING = true
 # makefile (from `Makefile', line 31)
 OBJS = $(SRC:.c=.o)
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n000cbym0032zn/T/vscode-ipc-92f8e040-a5ca-4518-8bf3-42e1317e87e2.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n000cbym0032zn/T/vscode-ipc-c1dc2446-6670-4732-9e10-a44086315ed7.sock
 # environment
 VSCODE_CWD = /
 # environment
 PATH = /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Users/ayassin/Desktop/42-ValgrindContainer
+# environment
+LaunchInstanceID = 7EAB9F74-EA55-4940-9866-69BE37101163
 # environment
 VSCODE_LOG_STACK = false
 # environment
@@ -57,7 +59,7 @@ ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.74qco9TvU8/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.eE3FQwfkY2/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -125,13 +127,15 @@ MFLAGS = -Rrqp
 # environment
 MAIL = ayassin@student.42abudhabi.ae
 # environment
-XPC_SERVICE_NAME = com.microsoft.VSCode.2336
+XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x1000000f.Electron
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
 +F = $(notdir $+)
 # environment
 __CF_USER_TEXT_ENCODING = 0x18BF5:0x0:0x0
+# environment
+COMMAND_MODE = unix2003
 # default
 MAKEFILES := 
 # automatic
@@ -140,6 +144,8 @@ MAKEFILES :=
 LC_ALL = C
 # makefile (from `Makefile', line 19)
 HEADER = minitalk.h
+# environment
+SECURITYSESSIONID = 1873e
 # automatic
 ^F = $(notdir $^)
 # default
@@ -153,9 +159,9 @@ SUBDIRS = libft ft_printf
 # environment
 LANG = C
 # environment
-VSCODE_PID = 67350
+VSCODE_PID = 9933
 # variable set hash-table stats:
-# Load=71/1024=7%, Rehash=0, Collisions=5/108=5%
+# Load=74/1024=7%, Rehash=0, Collisions=5/111=5%
 
 # Pattern-specific Variable Values
 
@@ -186,7 +192,7 @@ all: client server
 # Not a target:
 client.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-12 10:47:29
+#  Last modified 2022-05-14 13:48:44
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -194,16 +200,15 @@ client.o:
 
 client: server.o client.o
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-12 10:47:29
+#  Last modified 2022-05-14 13:51:13
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 48):
+#  commands to execute (from `Makefile', line 47):
 	for dir in $(SUBDIRS); do \
 	$(MAKE) all -C $$dir; \
 	done
-	$(CC) $(CFALGS) -c client.c
 	$(CC) $(CFLAGS) $(LINKS) client.c -o client
 	
 
@@ -221,7 +226,7 @@ client: server.o client.o
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-12 10:47:24
+#  Last modified 2022-05-12 15:30:58
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -230,7 +235,7 @@ Makefile:
 # Not a target:
 server.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-12 10:47:29
+#  Last modified 2022-05-14 13:51:13
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -238,14 +243,13 @@ server.o:
 
 server: server.o client.o
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-12 10:47:29
+#  Last modified 2022-05-14 13:51:13
 #  File has been updated.
 #  Successfully updated.
 #  commands to execute (from `Makefile', line 41):
 	for dir in $(SUBDIRS); do \
 	$(MAKE) all -C $$dir; \
 	done
-	$(CC) $(CFALGS) -c server.c
 	$(CC) $(CFALGS) $(LINKS) server.c -o server
 	
 
@@ -267,7 +271,7 @@ fclean: clean
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 62):
+#  commands to execute (from `Makefile', line 60):
 	for dir in $(SUBDIRS); do \
 	$(MAKE) fclean -C $$dir; \
 	done
@@ -291,11 +295,11 @@ clean:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 55):
+#  commands to execute (from `Makefile', line 53):
 	for dir in $(SUBDIRS); do \
 	$(MAKE) clean -C $$dir; \
 	done
-	rm -f $(OBJS)
+	rm -f $(OBJS) 
 	
 
 # files hash-table stats:
@@ -311,6 +315,6 @@ clean:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Thu May 12 10:47:42 2022
+# Finished Make data base on Sat May 14 14:15:04 2022
 
  

@@ -6,11 +6,13 @@
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 08:39:04 by ayassin           #+#    #+#             */
-/*   Updated: 2022/05/12 13:08:29 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/05/14 13:48:33 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
+int	pid;
 
 // little endian
 void	send_char(int pid, uint8_t c)
@@ -29,6 +31,10 @@ void	send_char(int pid, uint8_t c)
 		usleep(250);
 	}
 }
+uint8_t	ft_isint(char *str)
+{
+	return (*str);
+}
 
 // big endian
 void	send_char2(int pid, uint8_t c)
@@ -46,18 +52,34 @@ void	send_char2(int pid, uint8_t c)
 	}
 }
 
+void	add_bit3(int signum, siginfo_t *info, void *ptr)
+{
+	//if (info->si_pid == pid)
+	(void) signum;
+	(void) info;
+	(void) ptr;
+	printf("It is happning\n");
+}
+
 int	main(int argv, char **argc)
 {
 	int	pid;
-
+	struct sigaction	sa;
+	
+	sa.sa_sigaction = add_bit3;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_RESTART;
+	sigaction(SIGUSR2, &sa, NULL);
 	if (argv == 3)
 	{
 		pid = ft_atoi(argc[1]);
-		if (kill(pid, 0) == -1)
+		if (kill(pid, SIGUSR2) == -1)
 		{
 			ft_printf("Process \"%d\" does not exist", pid);
 			return (0);
 		}
+		else
+			pause();
 		while (*(argc[2]))
 		{
 			send_char2(pid, *(argc[2]));
@@ -67,3 +89,4 @@ int	main(int argv, char **argc)
 	}
 	return (0);
 }
+	
