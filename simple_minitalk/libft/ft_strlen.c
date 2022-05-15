@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/10 08:37:35 by ayassin           #+#    #+#             */
-/*   Updated: 2022/05/15 17:45:05 by ayassin          ###   ########.fr       */
+/*   Created: 2021/11/14 19:52:57 by ayassin           #+#    #+#             */
+/*   Updated: 2022/04/07 09:16:56 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-# include <signal.h>
-# include <unistd.h>
-# include "libft/libft.h"
-# include "ft_printf/ft_printf.h"
+/* Return int length of string "s1"
+**NOT PROTECTED VS NULL INPUT**/
+int	ft_strlen(const char *s)
+{
+	int	len;
 
-# ifndef T_UINT8
-#  define T_UINT8
-
-typedef unsigned char	t_uint8;
-# endif
-
-# define WAIT_BUFFER 300
-# define MINITALK_INT 0
-
-#endif
+	if (s == NULL)
+		return (0);
+	len = -1;
+	while (s[++len])
+		;
+	return (len);
+}

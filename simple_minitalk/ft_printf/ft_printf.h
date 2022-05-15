@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/10 08:37:35 by ayassin           #+#    #+#             */
-/*   Updated: 2022/05/15 17:45:05 by ayassin          ###   ########.fr       */
+/*   Created: 2022/01/30 11:19:14 by ayassin           #+#    #+#             */
+/*   Updated: 2022/05/10 08:59:46 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
-
-# include <signal.h>
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
+# include <stdarg.h>
 # include <unistd.h>
-# include "libft/libft.h"
-# include "ft_printf/ft_printf.h"
+# include "../libft/libft.h"
 
-# ifndef T_UINT8
-#  define T_UINT8
-
-typedef unsigned char	t_uint8;
-# endif
-
-# define WAIT_BUFFER 300
-# define MINITALK_INT 0
-
+int	ft_printf(const char *str, ...);
+int	ft_printfstr(char *str);
+int	ft_printfptr(unsigned long long int p);
+int	ft_printfunsgned(unsigned int p, int base, int upper);
+int	ft_printfint(int num);
 #endif

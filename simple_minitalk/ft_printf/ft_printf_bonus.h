@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_printf_bonus.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/10 08:37:35 by ayassin           #+#    #+#             */
-/*   Updated: 2022/05/15 17:45:05 by ayassin          ###   ########.fr       */
+/*   Created: 2022/01/30 14:57:03 by ayassin           #+#    #+#             */
+/*   Updated: 2022/05/10 08:59:29 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
-
-# include <signal.h>
+#ifndef FT_PRINTF_BONUS_H
+# define FT_PRINTF_BONUS_H
+# include <stdarg.h>
 # include <unistd.h>
-# include "libft/libft.h"
-# include "ft_printf/ft_printf.h"
+# include "../libft/libft.h"
 
-# ifndef T_UINT8
-#  define T_UINT8
-
-typedef unsigned char	t_uint8;
-# endif
-
-# define WAIT_BUFFER 300
-# define MINITALK_INT 0
-
+int	ft_printf(const char *str, ...);
+int	ft_printfchar_b(int c, int dash, int width);
+int	ft_printfstr_b(char *str, int *flags);
+int	ft_printfptr_b(long long int p, int dash, int width);
+int	ft_printfunsgned_b(unsigned int p, int *flags, unsigned int base, char up);
+int	ft_printfint_b(int num, int *flags);
 #endif

@@ -1,30 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/10 08:37:35 by ayassin           #+#    #+#             */
-/*   Updated: 2022/05/15 17:45:05 by ayassin          ###   ########.fr       */
+/*   Created: 2021/11/17 16:41:42 by ayassin           #+#    #+#             */
+/*   Updated: 2021/12/26 10:57:59 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-# include <signal.h>
-# include <unistd.h>
-# include "libft/libft.h"
-# include "ft_printf/ft_printf.h"
-
-# ifndef T_UINT8
-#  define T_UINT8
-
-typedef unsigned char	t_uint8;
-# endif
-
-# define WAIT_BUFFER 300
-# define MINITALK_INT 0
-
-#endif
+/* Add node "wen" to the fron of "lst"*/
+void	ft_lstadd_front(t_list **lst, t_list *wen)
+{
+	wen -> next = *lst;
+	*lst = wen;
+}

@@ -1,30 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/10 08:37:35 by ayassin           #+#    #+#             */
-/*   Updated: 2022/05/15 17:45:05 by ayassin          ###   ########.fr       */
+/*   Created: 2021/11/14 20:12:28 by ayassin           #+#    #+#             */
+/*   Updated: 2021/12/26 14:42:19 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-# include <signal.h>
-# include <unistd.h>
-# include "libft/libft.h"
-# include "ft_printf/ft_printf.h"
+/* Write integer "n" in file disriptor "fd" (make fd = 1)*/
+void	ft_putnbr_fd(int n, int fd)
+{
+	long	pow10;
+	long	clone;
+	char	c;
 
-# ifndef T_UINT8
-#  define T_UINT8
-
-typedef unsigned char	t_uint8;
-# endif
-
-# define WAIT_BUFFER 300
-# define MINITALK_INT 0
-
-#endif
+	clone = n;
+	pow10 = 1;
+	if (n < 0)
+	{
+		ft_putchar_fd('-', fd);
+		clone *= -1;
+	}
+	while (clone / (pow10 * 10) != 0)
+	{
+		pow10 *= 10;
+	}
+	while (pow10 > 0)
+	{
+		c = clone / pow10 + '0';
+		write(fd, &c, 1);
+		clone = clone % pow10;
+		pow10 /= 10;
+	}
+}

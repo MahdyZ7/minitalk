@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   simple_minitalk.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 08:37:35 by ayassin           #+#    #+#             */
-/*   Updated: 2022/05/15 17:45:05 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/05/15 12:40:52 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#ifndef SIMPLE_MINITALK_H
+# define SIMPLE_MINITALK_H
 
 # include <signal.h>
 # include <unistd.h>
@@ -22,9 +22,14 @@
 #  define T_UINT8
 
 typedef unsigned char	t_uint8;
+
 # endif
 
-# define WAIT_BUFFER 300
-# define MINITALK_INT 0
+# ifndef T_INT8
+#  define T_INT8
+
+typedef char			t_int8;
+
+# endif
 
 #endif
