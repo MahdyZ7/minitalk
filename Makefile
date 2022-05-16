@@ -6,7 +6,7 @@
 #    By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/09 12:46:30 by ayassin           #+#    #+#              #
-#    Updated: 2022/05/12 15:30:58 by ayassin          ###   ########.fr        #
+#    Updated: 2022/05/16 11:20:58 by ayassin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,15 +37,15 @@ all: $(CLIENT) $(SERVER)
 
 $(NAME):$(OBJS) $(SERVER) $(CLIENT)
 
-$(SERVER): $(OBJS) 
+$(SERVER): $(OBJS)
 	for dir in $(SUBDIRS); do \
-        $(MAKE) all -C $$dir; \
+        $(MAKE) --directory=$$dir; \
     done
 	$(CC) $(CFALGS) $(LINKS) server.c -o server
 	
 $(CLIENT): $(OBJS)
 	for dir in $(SUBDIRS); do \
-        $(MAKE) all -C $$dir; \
+        $(MAKE) --directory=$$dir; \
     done
 	$(CC) $(CFLAGS) $(LINKS) client.c -o client
 

@@ -6,13 +6,21 @@
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 08:39:04 by ayassin           #+#    #+#             */
-/*   Updated: 2022/05/15 16:58:32 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/05/16 09:14:10 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-int	minitalk_atoi(char *str, t_uint8 *valid_flag)
+static int	minitalk_atoi(char *str, t_uint8 *valid_flag);
+static void	send_char2(int pid, t_uint8 c);
+static void	client_wait(int signum, siginfo_t *info, void *ptr);
+static void	send_string(int pid, char *message);
+int			main(int argv, char **argc);
+
+/*atoi function with a flag "valid flag" to check if resulting int is positive
+and has no no numeric digits*/
+static int	minitalk_atoi(char *str, t_uint8 *valid_flag)
 {
 	unsigned long	num;
 
@@ -33,8 +41,9 @@ int	minitalk_atoi(char *str, t_uint8 *valid_flag)
 	return (num);
 }
 
-// big endian
-void	send_char2(int pid, t_uint8 c)
+/* Send a char "c" bit by bit using big endian notation to process "pid"
+convention: SIGUSR1 is 0, SIGUSR2 is 1*/
+static void	send_char2(int pid, t_uint8 c)
 {
 	int	bit_count;
 
@@ -49,7 +58,12 @@ void	send_char2(int pid, t_uint8 c)
 	}
 }
 
-void	client_wait(int signum, siginfo_t *info, void *ptr)
+/* sigaction of client 
+- intilize by sending a signal to the server and wait for a response (pause)
+- if the server resopnds with SIGUSR2 then continue the program
+- if the server responds with SIGUSR1 then exit the program (transmition failed)
+*/
+static void	client_wait(int signum, siginfo_t *info, void *ptr)
 {
 	static int	pid;
 
@@ -75,7 +89,9 @@ void	client_wait(int signum, siginfo_t *info, void *ptr)
 	}
 }
 
-void	send_string(int pid, char *message)
+/* Sends a string message to process "pid" using sendchar2
+with a buffer period every 2^8 - 1 chars*/
+static void	send_string(int pid, char *message)
 {
 	char	chars_sent;
 
@@ -93,6 +109,7 @@ void	send_string(int pid, char *message)
 	ft_printf("message sent\n");
 }
 
+/* main of client, set up sigaction and make sure the inputs are valid*/
 int	main(int argv, char **argc)
 {
 	int					pid;

@@ -6,7 +6,7 @@
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 08:37:35 by ayassin           #+#    #+#             */
-/*   Updated: 2022/05/15 17:45:05 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/05/16 09:57:33 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 # ifndef T_UINT8
 #  define T_UINT8
 
-typedef unsigned char	t_uint8;
+typedef unsigned char	t_uint8; // dumb typedef of uint8_t for linux
 # endif
 
-# define WAIT_BUFFER 300
-# define MINITALK_INT 0
+# define WAIT_BUFFER 300	// wait peroid btween segnals
+# define MINITALK_INIT 0		// intilization signal
 
 #endif

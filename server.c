@@ -6,14 +6,20 @@
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 08:49:08 by ayassin           #+#    #+#             */
-/*   Updated: 2022/05/15 17:46:55 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/05/16 11:21:45 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-/*pop the first item out int the list "*lst" and frees it*/
-void	ft_lstpop(t_list **lst)
+static void	ft_lstpop(t_list **lst);
+static int	add_bit4(int signum);
+static int	new_client(int sender_pid, t_list **client_queue);
+static void	server_hq(int signum, siginfo_t *info, void *ptr);
+int			main(void);
+
+/*pop the first node out int the list "*lst" and frees it*/
+static void	ft_lstpop(t_list **lst)
 {
 	t_list	*temp;
 
@@ -26,13 +32,15 @@ void	ft_lstpop(t_list **lst)
 	ft_lstdelone(temp, free);
 }
 
-// big endian bit transfer
-int	add_bit4(int signum)
+/* recive bits and order them into a char big endian style
+writes the char every 8 bits
+Returns 1 whan a null char is made (signals end of transmition)*/
+static int	add_bit4(int signum)
 {
 	static char	c;
 	static int	bit_count;
 
-	if (signum == MINITALK_INT)
+	if (signum == MINITALK_INIT)
 	{
 		c = 0;
 		bit_count = 0;
@@ -49,34 +57,47 @@ int	add_bit4(int signum)
 	else
 	{
 		write(1, "\n", 1);
-		return (add_bit4(MINITALK_INT) + 1);
+		return (add_bit4(MINITALK_INIT) + 1);
 	}
-	return (add_bit4(MINITALK_INT));
+	return (add_bit4(MINITALK_INIT));
 }
 
-/* add an new process with id "sender_pid to the client queue*/
-int	new_client(int sender_pid, t_list **client_queue)
+/* add a new process with id "sender_pid to the client queue as a node
+if the added node is the first send a message back and start transmition*/
+static int	new_client(int sender_pid, t_list **client_queue)
 {
 	int		*pid;
-	t_list	*temp;
+	t_list	*temp_node;
 
 	pid = (int *)malloc(sizeof(*pid));
 	if (pid == NULL)
 		return (kill(*pid, SIGUSR1));
 	*pid = sender_pid;
-	temp = ft_lstnew(pid);
-	if (temp == NULL)
+	temp_node = ft_lstnew(pid);
+	if (temp_node == NULL)
 	{
 		free(pid);
 		return (kill(*pid, SIGUSR1));
 	}
-	ft_lstadd_back(client_queue, temp);
+	ft_lstadd_back(client_queue, temp_node);
 	if (sender_pid == *((int *)(*client_queue)->content))
-		return (kill(*pid, SIGUSR2));
+	{
+		if (kill(*pid, SIGUSR2) == -1)
+			ft_lstpop(client_queue);
+	}
 	return (0);
 }
 
 /* switch function to handle SIGUSR1, SIGUSR2, and SIGINT signals
+- SIGINT: clear queue and exit
+- MINITALK_INT: intilize the queue to NULL if info is NULL
+_______________ Go through the list in order and intiate contact 
+_______________ with the first pid that responds
+- SIGUSR1 || SIGUSR2 : add the pid of the sender to the queue
+______________________ if the signal is from the fist node in the queue
+______________________ start printing the message
+______________________ if a null is  recived intiate contact with the 
+______________________ next item in the queue
 */
 static void	server_hq(int signum, siginfo_t *info, void *ptr)
 {
@@ -88,11 +109,11 @@ static void	server_hq(int signum, siginfo_t *info, void *ptr)
 		write(1, "\n", 1);
 		exit(0);
 	}
-	else if (signum == MINITALK_INT && info != NULL)
+	else if (signum == MINITALK_INIT && info != NULL)
 		while (client_queue
 			&& kill(*(int *)client_queue->content, SIGUSR2) == -1)
 			ft_lstpop(&client_queue);
-	else if (signum == MINITALK_INT && info == NULL)
+	else if (signum == MINITALK_INIT && info == NULL)
 		client_queue = NULL;
 	else if (client_queue == NULL
 		|| info->si_pid != *((int *)client_queue->content))
@@ -106,12 +127,13 @@ static void	server_hq(int signum, siginfo_t *info, void *ptr)
 	}
 }
 
+/* set up the signal handlers and start an infinate loop*/
 int	main(void)
 {
 	struct sigaction	sa;
 
-	add_bit4(MINITALK_INT);
-	server_hq(MINITALK_INT, NULL, NULL);
+	add_bit4(MINITALK_INIT);
+	server_hq(MINITALK_INIT, NULL, NULL);
 	ft_printf("the process id is %d\n", getpid());
 	sa.sa_sigaction = server_hq;
 	sigemptyset(&sa.sa_mask);

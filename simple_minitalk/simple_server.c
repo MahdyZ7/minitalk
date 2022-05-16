@@ -6,7 +6,7 @@
 /*   By: ayassin <ayassin@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 08:49:08 by ayassin           #+#    #+#             */
-/*   Updated: 2022/05/15 17:02:12 by ayassin          ###   ########.fr       */
+/*   Updated: 2022/05/16 09:15:22 by ayassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ int	main(void)
 // void	server_hq(int signum, siginfo_t *info, void *ptr)
 // {
 // 	static t_list	*client_queue;
-	
 // 	if (signum == 0)
 // 		kill(info->si_pid, SIGUSR2);
-// 	else if (client_queue == NULL || info->si_pid != *((int *)client_queue->content))
+// 	else if (client_queue == NULL 
+//		|| info->si_pid != *((int *)client_queue->content))
 // 		new_client(info->si_pid, &client_queue);
 // 	else if (client_queue && info->si_pid == *((int *)client_queue->content))
 // 	{
