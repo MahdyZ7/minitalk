@@ -1,8 +1,0 @@
-make[1]: Entering directory `/Users/ayassin/Documents/git files/minitalk/simple_minitalk/ft_printf'
-gcc -Werror -Wall -Wextra -I../libft_beta -c ft_printfhelper.c -o ft_printfhelper.o
-gcc -Werror -Wall -Wextra -I../libft_beta -c ft_printf.c -o ft_printf.o
-ar cr  libftprintf.a ft_printfhelper.o ft_printf.o
-make[1]: Leaving directory `/Users/ayassin/Documents/git files/minitalk/simple_minitalk/ft_printf'
-gcc  -Llibft -lft -Lft_printf -lftprintf simple_server.c -o simple_server
-make: Leaving directory `/Users/ayassin/Documents/git files/minitalk/simple_minitalk'
- 
